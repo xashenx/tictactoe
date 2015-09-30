@@ -24,6 +24,8 @@ public class Interface extends JFrame implements ActionListener {
 	int count = 0;
 	int sign = 0;
 	private TicTacToe game;
+	private TicTacToeBot botGame;
+	private TicTacToeUser userGame;
 	
     private JMenuBar barraMenu;
     private JMenu menu;
@@ -31,18 +33,15 @@ public class Interface extends JFrame implements ActionListener {
 
 	public Interface(TicTacToe ttt) {
 		game = ttt;
-		
-		
-	    
-	    //Barra menu y opciones menu
-	    barraMenu = new JMenuBar();
+		this.setSize(500,500);
+		// initializes the menu item
+	    /*barraMenu = new JMenuBar();
 	    menu = new JMenu("Menu");
 	    restart = new JMenuItem("Restart");
+	    restart.addActionListener(this);
 	    barraMenu.add(menu);
 	    menu.add(restart);
-	    setJMenuBar(barraMenu);
-		
-		this.setSize(500,500);
+	    setJMenuBar(barraMenu);*/
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(3, 3));
 		this.getContentPane().setLayout(new BorderLayout());
@@ -63,6 +62,7 @@ public class Interface extends JFrame implements ActionListener {
 	}
 
 	public void fillCell(Integer x, Integer y, String symbol) {
+		// fill the button with the current player's symbol
 		if (x == 0 && y == 0)
 			button[6].setText(symbol);
 		else if (x == 0 && y == 1)
@@ -85,9 +85,21 @@ public class Interface extends JFrame implements ActionListener {
 
 	
 	public void setLabel(String message){
+		// changes the user message
 		label.setText(message);
 	}
+	
 	public void actionPerformed(ActionEvent e) {
+		// handles the actions
+		if(restart == e.getSource()){
+			Integer mode = game.getMode();
+			if(mode == 1){
+				System.out.println("user");
+			} else if(mode == 2){
+				System.out.println("bot");				
+			}
+		}
+		else {
 		for(int i=0;i<9;i++)
 			if(button[i] == e.getSource()){
 				if(game.isGameOver())
@@ -97,6 +109,7 @@ public class Interface extends JFrame implements ActionListener {
 				else
 					label.setText("That cell is occupied!");
 			}
+		}
 	}
 	
 	private void doMove(Integer i){

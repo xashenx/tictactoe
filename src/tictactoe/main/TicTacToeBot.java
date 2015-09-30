@@ -11,6 +11,7 @@ public class TicTacToeBot {
 
 	// private static final String O_WON = "PLAYER O WON!";
 	public void restart(){
+		
 		main(null);
 	}
 

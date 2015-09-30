@@ -11,9 +11,6 @@ public class TicTacToe {
 	private static final boolean DEBUG = false;
 	private static Interface ui;
 	private static final String DRAW_MESSAGE = "GAME ENDS WITH A DRAW!";
-	private static final String START_MESSAGE = "GAME STARTED!\n";
-	private static final String VALID_MOVE_MESSAGE = "MOVE #";
-	private static final String INVALID_MOVE_MESSAGE = "INVALID MOVE! (";
 	private static final String[] WIN_MESSAGE = { "PLAYER X WON!", "PLAYER O WON!" };
 	private Integer mode;
 
@@ -26,37 +23,33 @@ public class TicTacToe {
 		symbols = new Character[2];
 		symbols[0] = 'X';
 		symbols[1] = 'O';
-		if(mode != 3)
-			ui = new Interface(this);
-	}
-
-	public Boolean isGameOver() {
-		if (gameState > 1)
-			return true;
-		return false;
-	}
-
-	public Integer getGameState() {
-		return gameState;
+		if(mode != 3){
+				ui = new Interface(this);	
+		}
 	}
 
 	public Boolean move(Integer x, Integer y) {
+		// tries to perform the requested move
 		if (DEBUG) {
 			System.out.println(x + " " + y);
 			System.out.println(this.getGameState());
 			System.out.println("moves: " + (this.getMoves() + 1));
 		}
 		if (board.validateMove(x, y, symbols[currentPlayer])) {
-			if(mode != 3)
+			// checks if the move is valid
+			if(mode != 3) // fills the cell on the interface
 				ui.fillCell(x, y, getCurrentPlayerSymbol().toString());
 			if (DEBUG) {
 				System.out.println("VALID MOVE(" + x + "," + y + ")");
 			}
 			if (++moves > 4)
+				// checks if the ending conditions are met
 				gameState = checkEndConditions(x, y);
 			if (!this.isGameOver())
+				// give control to the next player if the game is not over
 				currentPlayer = (currentPlayer + 1) % 2;
 			else if (mode != 3){
+				// if the game is over prints the end message on the ui
 				if (getGameState() == 5)
 					ui.setLabel(DRAW_MESSAGE);
 				else
@@ -69,6 +62,16 @@ public class TicTacToe {
 			System.out.println("INVALID MOVE(" + x + "," + y + ")");
 		}
 		return false;
+	}
+	
+	public Boolean isGameOver() {
+		if (gameState > 1)
+			return true;
+		return false;
+	}
+
+	public Integer getGameState() {
+		return gameState;
 	}
 
 	public Integer getCurrentPlayer() {
@@ -103,5 +106,9 @@ public class TicTacToe {
 
 	public Integer getMoves() {
 		return this.moves;
+	}
+	
+	public Integer getMode(){
+		return this.mode;
 	}
 }
