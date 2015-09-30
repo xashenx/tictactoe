@@ -15,7 +15,7 @@ public class TicTacToeResultsTest {
 
 	@Before
 	public void setUp() throws Exception {
-		game = new TicTacToe();
+		game = new TicTacToe(3); // test mode
 	}
 
 	@After
@@ -108,6 +108,7 @@ public class TicTacToeResultsTest {
 		assertEquals((Integer)4,game.getGameState());
 	}
 	
+	@Test
 	public void diagonalWin2(){
 		//TDD stage 4
 		game.move(0, 2);

@@ -22,7 +22,7 @@ public class TicTacToeBoardTest {
 
 	@Before
 	public void setUp() throws Exception {
-		game = new TicTacToe();
+		game = new TicTacToe(3); // test mode
 	}
 
 	@After
